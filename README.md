@@ -8,28 +8,32 @@
 
 ## Étapes pour tester l'API
 
-1. **Configurer la base de données**
+### Préparer les fichiers de configuration
+
+1. **Renommer le fichier `.env.example` en `.env`**
+
+2. **Configurer la base de données**
 
    - Mettez à jour vos informations de connexion à la base de données dans le fichier `.env` :
      ```env
      DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database_name>"
      ```
 
-2. **Installer les dépendances**
+3. **Installer les dépendances**
 
    - Lancez la commande suivante pour installer toutes les dépendances nécessaires :
      ```bash
      composer install
      ```
 
-3. **Initialiser la base de données**
+4. **Initialiser la base de données**
 
    - Exécutez les migrations pour créer les tables nécessaires :
      ```bash
      php bin/console doctrine:migrations:migrate
      ```
 
-4. **Charger les fixtures**
+5. **Charger les fixtures**
 
    - Pour pré-remplir la base de données avec des données de test (3 chats et 3 utilisateurs) :
      ```bash
@@ -37,23 +41,7 @@
      ```
    - Les informations des utilisateurs par défaut sont disponibles dans `src/DataFixtures/UserFixtures.php`.
 
-5. **Démarrer le serveur Symfony**
-
-   - Lancez le serveur local Symfony :
-     ```bash
-     symfony serve
-     ```
-
-6. **Configurer Postman**
-
-   - Définissez les variables d'environnement suivantes :
-     - `base_url` : L'URL de base de l'API (e.g., `http://127.0.0.1:8000`).
-     - `admin_jwt` : Le token JWT récupéré après connexion pour les admin.
-     - `user_jwt` : Le token JWT récupéré après connexion pour les user.
-
-7. **Générer les clés JWT**
-
-   Les clés JWT sont nécessaires pour le fonctionnement de l'API. Voici les étapes pour les générer :
+6. **Générer les clés JWT**
 
    - **Créer le dossier pour les clés** :
 
@@ -61,19 +49,44 @@
      mkdir config/jwt
      ```
 
-   - **Générer une paire de clés** :
+   - **Générer une clé privée protégée par une phrase secrète** :
 
      ```bash
-     php bin/console lexik:jwt:generate-keypair
+     openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
      ```
 
-   - **Configurer les fichiers dans `.env.local`** :
-     Ajoutez les chemins et la phrase secrète dans votre fichier `.env.local` :
+   - **Générer la clé publique associée** :
+
+     ```bash
+     openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
+     ```
+
+   - **Créer un fichier `.env.local` et y configurer les clés JWT** :
+     Ajoutez le contenu suivant dans votre fichier `.env.local` :
+
      ```env
+     ###> lexik/jwt-authentication-bundle ###
      JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem
      JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
-     JWT_PASSPHRASE=MaPhraseSecrete
+     JWT_PASSPHRASE=
+     ###< lexik/jwt-authentication-bundle ###
      ```
+
+     - Remplacez `JWT_PASSPHRASE` par la phrase secrète utilisée lors de la génération de la clé privée.
+
+7. **Démarrer le serveur Symfony**
+
+   - Lancez le serveur local Symfony :
+     ```bash
+     symfony serve
+     ```
+
+8. **Configurer Postman**
+
+   - Importer la collection et l'environnement depuis le dossier postman/
+   - Mettre à jour les variables d'environnement si nécessaire :
+     - base_url : http://127.0.0.1:8000 par défaut.
+     - jwt_token : Récupérez ce token en effectuant une requête de connexion.
 
 ## Fonctionnement de l'API
 

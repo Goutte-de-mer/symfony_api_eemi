@@ -1,0 +1,319 @@
+{
+	"info": {
+		"_postman_id": "16a4a3a6-71a6-4e1b-a0de-0dc0b750eb5e",
+		"name": "API Symfony EEMI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30737694"
+	},
+	"item": [
+		{
+			"name": "Get all cats",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzQxODk2ODgsImV4cCI6MTczNDE5MzI4OCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6Im1hcmlvbi5iYWlsbGV1eEBleGFtcGxlLmNvbSJ9.Yh7jPhvSs92A7s5frCrsrNzpeSFhA1act3kxRF5rBCbQxgC8qznCS6SZFihhldSA20PcCirAX0n-Y_eYy5HKdN3HqGl_7z9WGUBihX0CgtwbCsFX6mJ7vk3SdxRjyDaBba7gcnJQquGXzf-4X0aYpMlc_Vco-KGzXCXKp5RmPcfyuT_nTZTlOtugQYzMfixpH_VoEV7JmQIRC3mNtNu-7mXBG_NMImyM7xEsd7m1cePk7cQVi6ynEb-7sRjo0uj3HXFW5R8qlpA5_nNVi2MO2f3PDMPEnyXlgqSGRw2BgyMhMTJIK-j3L3LDXVHEK0hrquvNN-zMIB7sqcMa561sTPfCMz4xqtHCwm6I6ptIV4fA2RT3QQ3ZxROjIqPq54_7kTfcx4L5ICm6z3qGFWZ_cSNN8ASUxOhW3rLKVNpmgM87dpRbVDVFEK6DAOVTjT3ovplTtzC3sykmLubFEh_csYf7bTp4Y1l9naSmu6u2ZtZnbrFNrdYxSqbZO3qfDBqQPuDrd92fyaarQQ3_jGGRJ4FgY58HLZZFXSmX6daikk1X8jJ1cVj85ASChlaCttcr7NqA6As5xVlPbX-IziLZAus5eRziha38z-6re35KSK54yKwiRn2vEpWyyFogtgw2CRs9iIllGTRCVyJnrSY1jAf62_k8QB20Pvx1vev5BE4",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/cats",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"cats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cat by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/cat/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"cat",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Valerie\",\r\n    \"lastname\": \"hier\",\r\n    \"email\": \"valeriehier@mail.fr\",\r\n    \"password\": \"Password123!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/register",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login as ADMIN",
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": [
+						{
+							"key": "header",
+							"value": "{njbguygyuj}",
+							"type": "string"
+						},
+						{
+							"key": "algorithm",
+							"value": "HS256",
+							"type": "string"
+						},
+						{
+							"key": "isSecretBase64Encoded",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "payload",
+							"value": "{}",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "queryParamKey",
+							"value": "token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"marion.bailleux@example.com\",\r\n    \"password\": \"Admin_password123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login as USER",
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": [
+						{
+							"key": "header",
+							"value": "{njbguygyuj}",
+							"type": "string"
+						},
+						{
+							"key": "algorithm",
+							"value": "HS256",
+							"type": "string"
+						},
+						{
+							"key": "isSecretBase64Encoded",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "payload",
+							"value": "{}",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "queryParamKey",
+							"value": "token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"john.doe@example.com\",\r\n    \"password\": \"User_password123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create cat",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{admin_jwt}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \" Zorro\",\r\n    \"short_description\": \"Absolument adorable ! <3 \",\r\n    \"age\": \"17 ans\",\r\n    \"is_vaccinated\": true,\r\n    \"long_description\": \"fnhjhif fuizrof n zijfuz jfzi\",\r\n    \"img\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/admin/create_cat",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"create_cat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update cat",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{admin_jwt}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"long_description\": \"dhfuf bfuef fbuezvi F pa  vc\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/admin/update_cat/7",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"update_cat",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete cat",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{admin_jwt}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \" Zorro\",\r\n    \"short_description\": \"Absolument adorable ! <3 \",\r\n    \"age\": \"17 ans\",\r\n    \"vaccinated\": true,\r\n    \"long_description\": \"fnhjhif fuizrof n zijfuz jfzi\",\r\n    \"img\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/admin/delete_cat/2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"delete_cat",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
